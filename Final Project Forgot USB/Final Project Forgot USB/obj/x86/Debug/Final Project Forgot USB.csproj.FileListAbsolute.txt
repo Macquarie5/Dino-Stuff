@@ -157,3 +157,6 @@ D:\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\T
 D:\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\TempWall.png
 D:\Final Project Forgot USB\Final Project Forgot USB\obj\x86\Debug\Final Project Forgot USB.csprojResolveAssemblyReference.cache
 D:\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\PEOPLE AGAIN.png
+D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Final Project Forgot USB.exe.config
+D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\obj\x86\Debug\Final Project Forgot USB.exe
+D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\obj\x86\Debug\Final Project Forgot USB.pdb
