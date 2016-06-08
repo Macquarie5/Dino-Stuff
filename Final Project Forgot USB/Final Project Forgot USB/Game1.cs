@@ -12,8 +12,7 @@ namespace Final_Project_Forgot_USB
     /// This is the main type for your game.
     /// </summary>
     /// 
-    //hello
-    //hello again
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
