@@ -494,7 +494,7 @@ namespace Final_Project_Forgot_USB
 
                 if (mouseClickRect.Intersects(startButtonRect))
                 {
-                    gameState = GameState.GAME1; //FIRST LEVEL
+                    gameState = GameState.GAME3; //FIRST LEVEL
                     
                 }
                 else if (mouseClickRect.Intersects(exitButtonRect))
