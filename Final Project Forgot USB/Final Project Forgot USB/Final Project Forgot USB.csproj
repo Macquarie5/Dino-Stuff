@@ -68,6 +68,9 @@
     <Content Include="Content\DINOOOOOO.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Dinosaur_Trex.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Exit.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

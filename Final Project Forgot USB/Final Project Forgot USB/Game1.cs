@@ -181,7 +181,7 @@ namespace Final_Project_Forgot_USB
             ExitButton = Content.Load<Texture2D>("Exit");
             MousePointer = Content.Load<Texture2D>("Pointer");
 
-            sprite = new Dinosaur_sprite(Content.Load<Texture2D>("DINOOOOOO"), 1, 87, 105);
+            sprite = new Dinosaur_sprite(Content.Load<Texture2D>("Dinosaur_Trex"), 1, 265, 139);
             sprite.Position = player.position;
 
             sprite2 = new People_Running(Content.Load<Texture2D>("PEOPLE AGAIN"), 1, 164, 200);
@@ -448,7 +448,7 @@ namespace Final_Project_Forgot_USB
 
 
             spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
-                Color.White, 0f, sprite.Origin, 2.0f, SpriteEffects.None, 0);
+                Color.White, 0f, sprite.Origin, 1.0f, SpriteEffects.FlipHorizontally, 0);
 
             spriteBatch.Draw(sprite2.Texture, sprite2.Position2, sprite2.SourceRect,
                     Color.White, 0f, sprite2.Origin, 1.0f, SpriteEffects.None, 0);
