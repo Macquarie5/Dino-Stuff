@@ -173,7 +173,7 @@ namespace Final_Project_Forgot_USB
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
-            player.texture = Content.Load<Texture2D>("TempPlayer2");
+            player.texture = Content.Load<Texture2D>("Dinosaur_Trex Single");
             enemy.texture = Content.Load<Texture2D>("TempEnemy");
             money.texture = Content.Load<Texture2D>("TempMoney");
             newmoney = Content.Load<Texture2D>("money_wad_finished");
@@ -422,8 +422,8 @@ namespace Final_Project_Forgot_USB
             {
                 spriteBatch.Draw(background1.texture, background1.position);
                 //spriteBatch.Draw(money.texture, money.position);
-                //.Draw(player.texture, player.position);
-                //spriteBatch.Draw(enemy.texture, enemy.position);
+                spriteBatch.Draw(player.texture, player.position,scale:new Vector2(0.5f, 0.5f), effects:SpriteEffects.FlipHorizontally);
+                //spriteBatch.Draw(enemy.texture, enemy.position); 
                 //spriteBatch.Draw(wall.texture, wall.position);
                 DrawMoney();
             }
@@ -531,6 +531,7 @@ namespace Final_Project_Forgot_USB
             foreach (MobileObject money in Missles)
             {
                 money.position += money.velocity;
+                money.rotation += 0.1f;
             }
         }
 
@@ -538,11 +539,13 @@ namespace Final_Project_Forgot_USB
         {
             foreach (GameObject money in Missles)
             {
-                spriteBatch.Draw(money.texture, money.position,null, null, null, money.rotation);
+                spriteBatch.Draw(money.texture, money.position,null,null,money.origin, money.rotation);
             }
         }
 
-        
+
+  
+
 
       
 
