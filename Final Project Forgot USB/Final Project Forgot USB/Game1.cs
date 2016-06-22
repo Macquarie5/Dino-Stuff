@@ -72,6 +72,9 @@ namespace Final_Project_Forgot_USB
 
         public Texture2D newmoney;
 
+        TimeSpan lastShot;
+        TimeSpan shotCoolDown;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -111,6 +114,9 @@ namespace Final_Project_Forgot_USB
             money.speed = 5;
             Missles = new List<MobileObject>();
             RandNum = new Random();
+
+            lastShot = new TimeSpan(0, 0, 0, 0, 0);
+            shotCoolDown = new TimeSpan(0, 0, 0, 1, 0);
             
             wall = new MobileObject();
             wall.position = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight / 3);
@@ -281,7 +287,7 @@ namespace Final_Project_Forgot_USB
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    CreateMoney();
+                    CreateMoney(gameTime);
                 }
                 UpdateMoney();
             }
@@ -332,7 +338,7 @@ namespace Final_Project_Forgot_USB
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 {
-                    CreateMoney();
+                    CreateMoney(gameTime);
                 }
                 UpdateMoney();
             }
@@ -383,7 +389,7 @@ namespace Final_Project_Forgot_USB
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.Space))// && money.isThrown == false)
                 {
-                    CreateMoney();
+                    CreateMoney(gameTime);
                 }
                 UpdateMoney();
             }
@@ -502,16 +508,23 @@ namespace Final_Project_Forgot_USB
             }
         }
 
-        public void CreateMoney()
+        public void CreateMoney(GameTime gameTime)
         {
-            MobileObject money = new MobileObject();
-            money.position = player.position;
-            money.texture = newmoney;
-            money.rotation = 1f;
-            money.rotationDelta = RandNum.Next(-100, 100);
-            money.velocity = new Vector2(5, 0);
-              
+            TimeSpan timeSincelastShot = gameTime.TotalGameTime - lastShot;
+
+            if (timeSincelastShot > shotCoolDown)
+            {
+                MobileObject money = new MobileObject();
+                money.position = player.position;
+                money.texture = newmoney;
+                money.rotation = 1f;
+                money.rotationDelta = RandNum.Next(-100, 100);
+                money.velocity = new Vector2(5, 0);
+
                 Missles.Add(money);
+
+                lastShot = gameTime.TotalGameTime;
+            }       
         }
 
         public void UpdateMoney()
