@@ -116,7 +116,7 @@ namespace Final_Project_Forgot_USB
             RandNum = new Random();
 
             lastShot = new TimeSpan(0, 0, 0, 0, 0);
-            shotCoolDown = new TimeSpan(0, 0, 0, 1, 0);
+            shotCoolDown = new TimeSpan(0, 0, 0, 0, 250);
             
             wall = new MobileObject();
             wall.position = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight / 3);
@@ -176,7 +176,7 @@ namespace Final_Project_Forgot_USB
             player.texture = Content.Load<Texture2D>("TempPlayer2");
             enemy.texture = Content.Load<Texture2D>("TempEnemy");
             money.texture = Content.Load<Texture2D>("TempMoney");
-            newmoney = Content.Load<Texture2D>("TempMoney");
+            newmoney = Content.Load<Texture2D>("money_wad_finished");
             wall.texture = Content.Load<Texture2D>("TempWall");
             background1.texture = Content.Load<Texture2D>("Ponce New");
             background2.texture = Content.Load<Texture2D>("Slums New");
@@ -248,8 +248,7 @@ namespace Final_Project_Forgot_USB
                 sprite.HandleSpriteMovement(gameTime);
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
-                
-                
+
                 Scrolling1();
                 player.Update(gameTime, player);
                 //Jumping
@@ -517,9 +516,9 @@ namespace Final_Project_Forgot_USB
                 MobileObject money = new MobileObject();
                 money.position = player.position;
                 money.texture = newmoney;
-                money.rotation = 1f;
+                money.rotation = RandNum.Next(-100, 100);
                 money.rotationDelta = RandNum.Next(-100, 100);
-                money.velocity = new Vector2(5, 0);
+                money.velocity = new Vector2(17, 0);
 
                 Missles.Add(money);
 
