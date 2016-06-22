@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/GitHub Stuff/Final Project Forgot USB/Final Project Forgot USB/Content/The_Show_Must_Be_Go.mp3</SourceFile>
+  <SourceFile>E:/GitHub Stuff/Final Project Forgot USB/Final Project Forgot USB/Content/The_Show_Must_Be_Go.mp3</SourceFile>
   <SourceTime>2016-05-03T20:14:08+09:30</SourceTime>
-  <DestFile>D:/GitHub Stuff/Final Project Forgot USB/Final Project Forgot USB/Content/bin/Windows/The_Show_Must_Be_Go.xnb</DestFile>
-  <DestTime>2016-06-08T18:44:30+09:30</DestTime>
+  <DestFile>E:/GitHub Stuff/Final Project Forgot USB/Final Project Forgot USB/Content/bin/Windows/The_Show_Must_Be_Go.xnb</DestFile>
+  <DestTime>2016-06-20T16:45:56+09:30</DestTime>
   <Importer>Mp3Importer</Importer>
-  <ImporterTime>2016-03-22T08:22:00+10:30</ImporterTime>
+  <ImporterTime>2016-02-25T03:42:10+10:30</ImporterTime>
   <Processor>SongProcessor</Processor>
-  <ProcessorTime>2016-03-22T08:22:00+10:30</ProcessorTime>
+  <ProcessorTime>2016-02-25T03:42:10+10:30</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
     <Value>Best</Value>
@@ -15,6 +15,6 @@
   <Dependencies />
   <BuildAsset />
   <BuildOutput>
-    <string>D:/GitHub Stuff/Final Project Forgot USB/Final Project Forgot USB/Content/bin/Windows/The_Show_Must_Be_Go.wma</string>
+    <string>E:/GitHub Stuff/Final Project Forgot USB/Final Project Forgot USB/Content/bin/Windows/The_Show_Must_Be_Go.wma</string>
   </BuildOutput>
 </PipelineBuildEvent>

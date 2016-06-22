@@ -109,7 +109,6 @@ namespace Final_Project_Forgot_USB
             money.scale = 1f;
             money.speed = 5;
             Missles = new List<MobileObject>();
-            money.isThrown = false;
             RandNum = new Random();
             
             wall = new MobileObject();
@@ -234,13 +233,16 @@ namespace Final_Project_Forgot_USB
                 base.Update(gameTime);
             }
 
-                if (gameState == GameState.GAME1)
+
+
+            //GameState 1 Update------------------------------------------------------
+            if (gameState == GameState.GAME1)
             {
                 sprite.HandleSpriteMovement(gameTime);
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
-                UpdateMoney();
-                MoneyCoolDown();
+                
+                
                 Scrolling1();
                 player.Update(gameTime, player);
                 //Jumping
@@ -280,16 +282,18 @@ namespace Final_Project_Forgot_USB
                 {
                     CreateMoney();
                 }
+                UpdateMoney();
             }
 
 
+
+            //GameState 2 Update-------------------------------------------------------------------
             if (gameState == GameState.GAME2)
             {
                 sprite.HandleSpriteMovement(gameTime);
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
-                UpdateMoney();
-                MoneyCoolDown();
+                
                 Scrolling2();
                 player.Update(gameTime, player);
                 //Jumping
@@ -329,16 +333,18 @@ namespace Final_Project_Forgot_USB
                 {
                     CreateMoney();
                 }
+                UpdateMoney();
             }
 
 
+
+            //GameState 3 Update-----------------------------------------------------------------
             if (gameState == GameState.GAME3)
             {
                 sprite.HandleSpriteMovement(gameTime);
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
-                UpdateMoney();
-                MoneyCoolDown();
+                
                 Scrolling3();
                 player.Update(gameTime, player);
                 //Jumping
@@ -378,20 +384,8 @@ namespace Final_Project_Forgot_USB
                 {
                     CreateMoney();
                 }
+                UpdateMoney();
             }
-
-           
-
-
-            
-
-            
-
-
-           
-
-
-
 
             base.Update(gameTime);
         }
@@ -415,6 +409,8 @@ namespace Final_Project_Forgot_USB
                 //Mouse Pointer
                 spriteBatch.Draw(MousePointer, MousePointerPosition);
             }
+
+
 
             if (gameState == GameState.GAME1)
             {
@@ -448,7 +444,7 @@ namespace Final_Project_Forgot_USB
 
 
             spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
-                Color.White, 0f, sprite.Origin, 1.0f, SpriteEffects.FlipHorizontally, 0);
+                Color.White, 0f, sprite.Origin, 0.5f, SpriteEffects.FlipHorizontally, 0);
 
             spriteBatch.Draw(sprite2.Texture, sprite2.Position2, sprite2.SourceRect,
                     Color.White, 0f, sprite2.Origin, 1.0f, SpriteEffects.None, 0);
@@ -494,7 +490,7 @@ namespace Final_Project_Forgot_USB
 
                 if (mouseClickRect.Intersects(startButtonRect))
                 {
-                    gameState = GameState.GAME3; //FIRST LEVEL
+                    gameState = GameState.GAME1; //FIRST LEVEL
                     
                 }
                 else if (mouseClickRect.Intersects(exitButtonRect))
@@ -507,19 +503,20 @@ namespace Final_Project_Forgot_USB
 
         public void CreateMoney()
         {
-            if (money.isThrown == false)
-            {
-
                 money.position = player.position;
                 money.texture = newmoney;
                 money.rotation = 1f;
                 money.rotationDelta = RandNum.Next(-100, 100);
                 
-
                 Missles.Add(money);
-                money.isThrown = true;
+        }
+
+        public void UpdateMoney()
+        {
+            foreach (MobileObject money in Missles)
+            {
+                money.position += new Vector2(1, 0);
             }
-            
         }
 
         public void DrawMoney()
@@ -530,33 +527,9 @@ namespace Final_Project_Forgot_USB
             }
         }
 
-        public void UpdateMoney()
-        {
-            foreach (MobileObject money in Missles)
-            {
-                money.position.X += 5;
-            }
-        }
+        
 
-        public void MoneyCoolDown()
-        {
-            int i = 0;
-            if (money.isThrown == true)
-            {
-                if (i > 10)
-                {
-                    money.isThrown = false;
-                    i = 0;
-                }
-                else
-                {
-                    i++;
-                }
-
-
-
-            }
-        }
+      
 
 
 

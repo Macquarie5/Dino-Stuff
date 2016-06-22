@@ -86,6 +86,9 @@
     <Content Include="Content\Menu trex.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\money_wad_finished.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Nano_Hoedown.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
