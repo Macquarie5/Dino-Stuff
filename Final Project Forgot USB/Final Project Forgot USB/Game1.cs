@@ -102,6 +102,7 @@ namespace Final_Project_Forgot_USB
 
             money = new MobileObject();
             money.position = player.position;
+            money.velocity = new Vector2(5, 0);
             money.size = new Vector2();
             money.origin = new Vector2();
             money.rotation = 1f;
@@ -503,11 +504,13 @@ namespace Final_Project_Forgot_USB
 
         public void CreateMoney()
         {
-                money.position = player.position;
-                money.texture = newmoney;
-                money.rotation = 1f;
-                money.rotationDelta = RandNum.Next(-100, 100);
-                
+            MobileObject money = new MobileObject();
+            money.position = player.position;
+            money.texture = newmoney;
+            money.rotation = 1f;
+            money.rotationDelta = RandNum.Next(-100, 100);
+            money.velocity = new Vector2(5, 0);
+              
                 Missles.Add(money);
         }
 
@@ -515,7 +518,7 @@ namespace Final_Project_Forgot_USB
         {
             foreach (MobileObject money in Missles)
             {
-                money.position += new Vector2(1, 0);
+                money.position += money.velocity;
             }
         }
 
