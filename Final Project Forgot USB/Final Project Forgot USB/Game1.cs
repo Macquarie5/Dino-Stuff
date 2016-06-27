@@ -102,6 +102,7 @@ namespace Final_Project_Forgot_USB
             player.jumping = false;
             player.jumpspeed = 0;
             player.startY = player.position.Y;
+            player.health = 500;
 
             money = new MobileObject();
             money.position = player.position;
@@ -426,6 +427,7 @@ namespace Final_Project_Forgot_USB
                 //spriteBatch.Draw(enemy.texture, enemy.position); 
                 //spriteBatch.Draw(wall.texture, wall.position);
                 DrawMoney();
+                DrawHealth();
             }
 
             if (gameState == GameState.GAME2)
@@ -518,11 +520,12 @@ namespace Final_Project_Forgot_USB
                 money.texture = newmoney;
                 money.rotation = RandNum.Next(-100, 100);
                 money.rotationDelta = RandNum.Next(-100, 100);
-                money.velocity = new Vector2(17, 0);
+                money.velocity = new Vector2(-17, 0);
 
                 Missles.Add(money);
 
                 lastShot = gameTime.TotalGameTime;
+                player.health -= 5;
             }       
         }
 
@@ -543,7 +546,13 @@ namespace Final_Project_Forgot_USB
             }
         }
 
-
+        public void DrawHealth()
+        {
+            Texture2D health = new Texture2D(GraphicsDevice, 1, 1);
+            health.SetData(new Color[] { Color.Red });
+            Rectangle healthBar = new Rectangle((int)5, (int)20, (int)player.health, 10);
+            spriteBatch.Draw(health, healthBar, Color.Red);
+        }
   
 
 
