@@ -120,7 +120,7 @@ namespace Final_Project_Forgot_USB
             shotCoolDown = new TimeSpan(0, 0, 0, 0, 250);
             
             wall = new MobileObject();
-            wall.position = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight / 3);
+            wall.position = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
             wall.size = new Vector2();
             wall.origin = new Vector2();
             wall.rotation = 0f;
@@ -178,7 +178,7 @@ namespace Final_Project_Forgot_USB
             enemy.texture = Content.Load<Texture2D>("TempEnemy");
             money.texture = Content.Load<Texture2D>("TempMoney");
             newmoney = Content.Load<Texture2D>("money_wad_finished");
-            wall.texture = Content.Load<Texture2D>("TempWall");
+            wall.texture = Content.Load<Texture2D>("Hydrent");
             background1.texture = Content.Load<Texture2D>("Ponce New");
             background2.texture = Content.Load<Texture2D>("Slums New");
             background3.texture = Content.Load<Texture2D>("FIELDS");
@@ -423,9 +423,9 @@ namespace Final_Project_Forgot_USB
             {
                 spriteBatch.Draw(background1.texture, background1.position);
                 //spriteBatch.Draw(money.texture, money.position);
-                spriteBatch.Draw(player.texture, player.position,scale:new Vector2(0.5f, 0.5f), effects:SpriteEffects.FlipHorizontally);
+                //spriteBatch.Draw(player.texture, player.position,scale:new Vector2(0.5f, 0.5f), effects:SpriteEffects.FlipHorizontally);
                 //spriteBatch.Draw(enemy.texture, enemy.position); 
-                //spriteBatch.Draw(wall.texture, wall.position);
+                spriteBatch.Draw(wall.texture, wall.position, scale:new Vector2(2.0f, 2.0f));
                 DrawMoney();
                 DrawHealth();
             }
@@ -438,6 +438,7 @@ namespace Final_Project_Forgot_USB
                 //spriteBatch.Draw(enemy.texture, enemy.position);
                 //spriteBatch.Draw(wall.texture, wall.position);
                 DrawMoney();
+                DrawHealth();
             }
 
             if (gameState == GameState.GAME3)
@@ -448,14 +449,15 @@ namespace Final_Project_Forgot_USB
                 //spriteBatch.Draw(enemy.texture, enemy.position);
                 //spriteBatch.Draw(wall.texture, wall.position);
                 DrawMoney();
+                DrawHealth();
             }
 
 
             spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
-                Color.White, 0f, sprite.Origin, 0.5f, SpriteEffects.FlipHorizontally, 0);
+                Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0);
 
             spriteBatch.Draw(sprite2.Texture, sprite2.Position2, sprite2.SourceRect,
-                    Color.White, 0f, sprite2.Origin, 1.0f, SpriteEffects.None, 0);
+                    Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
 
             spriteBatch.End();
             base.Draw(gameTime);
@@ -518,9 +520,10 @@ namespace Final_Project_Forgot_USB
                 MobileObject money = new MobileObject();
                 money.position = player.position;
                 money.texture = newmoney;
-                money.rotation = RandNum.Next(-100, 100);
-                money.rotationDelta = RandNum.Next(-100, 100);
+                money.rotation = 0;
+                money.rotationDelta = 0;
                 money.velocity = new Vector2(-17, 0);
+                money.origin = new Vector2(money.texture.Width / 2, money.texture.Height / 2);
 
                 Missles.Add(money);
 
@@ -534,7 +537,7 @@ namespace Final_Project_Forgot_USB
             foreach (MobileObject money in Missles)
             {
                 money.position += money.velocity;
-                money.rotation += 0.1f;
+                money.rotation -= 0.1f;
             }
         }
 
@@ -550,7 +553,9 @@ namespace Final_Project_Forgot_USB
         {
             Texture2D health = new Texture2D(GraphicsDevice, 1, 1);
             health.SetData(new Color[] { Color.Red });
-            Rectangle healthBar = new Rectangle((int)5, (int)20, (int)player.health, 10);
+            Rectangle healthBar = new Rectangle((int)10, (int)20, (int)player.health, 20);
+            Rectangle healthBarBackground = new Rectangle((int)5, (int)15, (int)510, 30);
+            spriteBatch.Draw(health, healthBarBackground, Color.Black);
             spriteBatch.Draw(health, healthBar, Color.Red);
         }
   

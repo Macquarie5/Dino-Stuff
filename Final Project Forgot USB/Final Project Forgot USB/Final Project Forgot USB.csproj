@@ -86,6 +86,9 @@
     <Content Include="Content\Gaslamp_Funworks.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Hydrent.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Menu trex.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
