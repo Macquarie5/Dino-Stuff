@@ -93,11 +93,12 @@ namespace Final_Project_Forgot_USB
 
             player = new PlayerObject();
 
+            player.UpdateBounds();
             player.position = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
-            player.size = new Vector2();
+            player.size = new Vector2(265,139);
             player.origin = new Vector2();
             player.rotation = 0f;
-            player.scale = 1f;
+            player.scale = 0.5f;
             player.speed = 1;
             player.jumping = false;
             player.jumpspeed = 0;
@@ -120,15 +121,16 @@ namespace Final_Project_Forgot_USB
             shotCoolDown = new TimeSpan(0, 0, 0, 0, 250);
             
             wall = new MobileObject();
-            wall.position = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
-            wall.size = new Vector2();
+            wall.UpdateBounds();
+            wall.position = new Vector2(graphics.PreferredBackBufferWidth / 2, 220);
+            wall.size = new Vector2(44,50);
             wall.origin = new Vector2();
             wall.rotation = 0f;
             wall.scale = 1f;
             wall.speed = 2;
 
             enemy = new GameObject();
-            enemy.position = new Vector2(5, graphics.PreferredBackBufferHeight / 2); //player.groundHeight
+            enemy.position = new Vector2(5, 150); //player.groundHeight
             enemy.size = new Vector2();
             enemy.origin = new Vector2();
             enemy.rotation = 0f;
@@ -199,6 +201,13 @@ namespace Final_Project_Forgot_USB
             //Level1 = Content.Load<Song>("");
             //Level2 = Content.Load<Song>("");
             //Level3 = Content.Load<Song>("");
+            wall.origin = new Vector2(wall.texture.Width / 2, wall.texture.Height / 2);
+            wall.SetSize(new Vector2(wall.texture.Width, wall.texture.Height));
+            wall.UpdateBounds();
+
+            player.origin = new Vector2(player.texture.Width / 2, player.texture.Height / 2);
+            player.SetSize(new Vector2(player.texture.Width, player.texture.Height));
+            player.UpdateBounds();
 
 
             // TODO: use this.Content to load your game content here
@@ -290,6 +299,12 @@ namespace Final_Project_Forgot_USB
                     CreateMoney(gameTime);
                 }
                 UpdateMoney();
+                
+                
+                wall.UpdateBounds();
+                player.UpdateBounds();
+                CheckWallCollisions();
+
             }
 
 
@@ -422,12 +437,14 @@ namespace Final_Project_Forgot_USB
             if (gameState == GameState.GAME1)
             {
                 spriteBatch.Draw(background1.texture, background1.position);
+                ShowCollisionBox();
                 //spriteBatch.Draw(money.texture, money.position);
                 //spriteBatch.Draw(player.texture, player.position,scale:new Vector2(0.5f, 0.5f), effects:SpriteEffects.FlipHorizontally);
                 //spriteBatch.Draw(enemy.texture, enemy.position); 
-                spriteBatch.Draw(wall.texture, wall.position, scale:new Vector2(2.0f, 2.0f));
+                spriteBatch.Draw(wall.texture, wall.position, scale:new Vector2(1.0f, 1.0f));
                 DrawMoney();
                 DrawHealth();
+                
             }
 
             if (gameState == GameState.GAME2)
@@ -466,11 +483,14 @@ namespace Final_Project_Forgot_USB
         //Into the voids
         //
         //
+        //
+        //
+        //
 
         public void Scrolling1()
         {
             background1.position.X -= 2;
-            player.position.X -= 2;
+            player.position.X -= 1;
         }
 
         public void Scrolling2()
@@ -537,7 +557,7 @@ namespace Final_Project_Forgot_USB
             foreach (MobileObject money in Missles)
             {
                 money.position += money.velocity;
-                money.rotation -= 0.1f;
+                money.rotation -= 0.3f;
             }
         }
 
@@ -559,9 +579,24 @@ namespace Final_Project_Forgot_USB
             spriteBatch.Draw(health, healthBar, Color.Red);
         }
   
+        public void CheckWallCollisions()
+        {
+            if (player.checkWallCollisions(wall))
+            {
+                player.health -= 1;
+            }
+        }
 
+        public void ShowCollisionBox()
+        {
+            Texture2D Test2 = new Texture2D(GraphicsDevice, 1, 1);
+            Test2.SetData(new Color[] { Color.Yellow });
+            Rectangle Test3 = new Rectangle((int)player.aabb.min.X, (int)player.aabb.min.Y, (int)(player.size.X * player.scale), (int)(player.size.Y * player.scale));
+            Rectangle Test4 = new Rectangle((int)wall.aabb.min.X, (int)wall.aabb.min.Y, (int)(wall.size.X * wall.scale), (int)(wall.size.Y * wall.scale));
+            spriteBatch.Draw(Test2, Test3, Color.Yellow);
+            spriteBatch.Draw(Test2, Test4, Color.Yellow);
 
-      
+        }
 
 
 

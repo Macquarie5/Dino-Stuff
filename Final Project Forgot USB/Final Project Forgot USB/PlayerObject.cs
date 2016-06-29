@@ -27,7 +27,17 @@ namespace Final_Project_Forgot_USB
             return false;
         }
 
-        
+        public bool checkWallCollisions(MobileObject wall)
+        {
+            bool result = AABBCollisionCheck(wall);
+
+            if (result)
+            {
+
+            }
+
+            return result;
+        }
 
 
     }

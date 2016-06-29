@@ -22,15 +22,27 @@ namespace Final_Project_Forgot_USB
 
         public AABB aabb;
 
-        protected virtual void UpdateBounds()
+        public virtual void UpdateBounds()
         {
             /// Note: this should be called whenever the object position,
             /// size, or scale are changed
-            aabb = new AABB(position, size * scale);
+            Vector2 extents = size * scale;
+            aabb = new AABB(position + extents/2, extents);
         }
         protected bool AABBCollisionCheck(GameObject pOther)
         {
             return aabb.CollsionCheck(pOther.aabb);
         }
+
+
+        public virtual void SetSize(Vector2 Size)
+        {
+            size = Size;
+            origin = new Vector2
+                (size.X / 2 * scale,
+                size.Y / 2 * scale);
+        }
+
+
     }
 }
