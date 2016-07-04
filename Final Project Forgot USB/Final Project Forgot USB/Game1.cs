@@ -79,6 +79,8 @@ namespace Final_Project_Forgot_USB
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //graphics.IsFullScreen = true;
+            
         }
 
         /// <summary>
@@ -130,8 +132,9 @@ namespace Final_Project_Forgot_USB
             wall.speed = 2;
 
             enemy = new GameObject();
+            enemy.UpdateBounds();
             enemy.position = new Vector2(5, 150); //player.groundHeight
-            enemy.size = new Vector2();
+            enemy.size = new Vector2(140,196);
             enemy.origin = new Vector2();
             enemy.rotation = 0f;
             enemy.scale = 1f;
@@ -183,7 +186,7 @@ namespace Final_Project_Forgot_USB
             wall.texture = Content.Load<Texture2D>("Hydrent");
             background1.texture = Content.Load<Texture2D>("Ponce New");
             background2.texture = Content.Load<Texture2D>("Slums New");
-            background3.texture = Content.Load<Texture2D>("FIELDS");
+            background3.texture = Content.Load<Texture2D>("FIELDS_+_cool_path");
             menuBackground = Content.Load<Texture2D>("!!!MENU_COVER");
             menuDino = Content.Load<Texture2D>("Menu trex");
             StartButton = Content.Load<Texture2D>("Start");
@@ -193,7 +196,7 @@ namespace Final_Project_Forgot_USB
             sprite = new Dinosaur_sprite(Content.Load<Texture2D>("Dinosaur_Trex"), 1, 265, 139);
             sprite.Position = player.position;
 
-            sprite2 = new People_Running(Content.Load<Texture2D>("PEOPLE AGAIN"), 1, 164, 200);
+            sprite2 = new People_Running(Content.Load<Texture2D>("PEOPLE AGAIN"), 1, 140, 196);
             sprite2.Position2 = enemy.position;
 
             //Music
@@ -593,8 +596,10 @@ namespace Final_Project_Forgot_USB
             Test2.SetData(new Color[] { Color.Yellow });
             Rectangle Test3 = new Rectangle((int)player.aabb.min.X, (int)player.aabb.min.Y, (int)(player.size.X * player.scale), (int)(player.size.Y * player.scale));
             Rectangle Test4 = new Rectangle((int)wall.aabb.min.X, (int)wall.aabb.min.Y, (int)(wall.size.X * wall.scale), (int)(wall.size.Y * wall.scale));
+            Rectangle Test5 = new Rectangle((int)enemy.aabb.min.X, (int)enemy.aabb.min.Y, (int)(enemy.size.X * enemy.scale), (int)(enemy.size.Y * enemy.scale));
             spriteBatch.Draw(Test2, Test3, Color.Yellow);
             spriteBatch.Draw(Test2, Test4, Color.Yellow);
+            spriteBatch.Draw(Test2, Test5, Color.Yellow);
 
         }
 

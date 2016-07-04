@@ -18,8 +18,8 @@ namespace Final_Project_Forgot_USB
         float timer2 = 0f;
         float interval2 = 200f;
         int currentFrame2 = 0;
-        int spriteWidth2 = 164;
-        int spriteHeight2 = 200;
+        int spriteWidth2 = 140;
+        int spriteHeight2 = 196;
         int spriteSpeed2 = 3;
         Rectangle sourceRect2;
         Vector2 position2;

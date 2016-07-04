@@ -175,8 +175,6 @@ D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\De
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\!!!MENU_COVER.PNG
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\DINOOOOOO.png
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\Exit.jpg
-D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\FIELDS.png
-D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\fields_long.png
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\Gaslamp_Funworks.mp3
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\Menu trex.png
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\Nano_Hoedown.mp3
@@ -278,3 +276,4 @@ E:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\De
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\money_wad_finished.png
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\Dinosaur_Trex Single.png
 D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\Hydrent.png
+D:\GitHub Stuff\Final Project Forgot USB\Final Project Forgot USB\bin\Windows\Debug\Content\FIELDS_+_cool_path.png

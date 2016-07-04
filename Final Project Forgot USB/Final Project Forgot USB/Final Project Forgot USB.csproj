@@ -77,10 +77,7 @@
     <Content Include="Content\Exit.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\FIELDS.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\fields_long.png">
+    <Content Include="Content\FIELDS_+_cool_path.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Gaslamp_Funworks.mp3">
