@@ -33,5 +33,17 @@ namespace Final_Project_Forgot_USB
 
         }
 
+        public bool checkEnemyMoneyCollisions(MobileObject Money)
+        {
+            bool result = AABBCollisionCheck(Money);
+
+            if (result)
+            {
+
+            }
+
+            return result;
+        }
+
     }
 }

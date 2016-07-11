@@ -37,6 +37,7 @@ namespace Final_Project_Forgot_USB
         MobileObject background1;
         MobileObject background2;
         MobileObject background3;
+        public int ScrollCount;
         GameObject enemy;
 
         //Mouse
@@ -191,8 +192,8 @@ namespace Final_Project_Forgot_USB
             background1.texture = Content.Load<Texture2D>("Poncey_neighbourhood");
             background2.texture = Content.Load<Texture2D>("Slums Final");
             background3.texture = Content.Load<Texture2D>("Fields Final");
-            menuBackground = Content.Load<Texture2D>("!!!MENU_COVER");
-            //menuDino = Content.Load<Texture2D>("Menu trex");
+            menuBackground = Content.Load<Texture2D>("Background_Final");
+            
             StartButton = Content.Load<Texture2D>("Start");
             ExitButton = Content.Load<Texture2D>("Exit");
             MousePointer = Content.Load<Texture2D>("Pointer");
@@ -320,6 +321,7 @@ namespace Final_Project_Forgot_USB
                 CheckWallCollisions();
                 CheckEnemyCollisions();
                 RemoveMoney();
+                CheckMoneyCollisions();
 
             }
 
@@ -372,6 +374,13 @@ namespace Final_Project_Forgot_USB
                     CreateMoney(gameTime);
                 }
                 UpdateMoney();
+
+                wall.UpdateBounds();
+                player.UpdateBounds();
+                enemy.UpdateBounds();
+                CheckWallCollisions();
+                CheckEnemyCollisions();
+                RemoveMoney();
             }
 
 
@@ -423,6 +432,13 @@ namespace Final_Project_Forgot_USB
                     CreateMoney(gameTime);
                 }
                 UpdateMoney();
+
+                wall.UpdateBounds();
+                player.UpdateBounds();
+                enemy.UpdateBounds();
+                CheckWallCollisions();
+                CheckEnemyCollisions();
+                RemoveMoney();
             }
 
             base.Update(gameTime);
@@ -507,18 +523,44 @@ namespace Final_Project_Forgot_USB
         {
             background1.position.X -= 2;
             player.position.X -= 1;
+
+            if (background1.position.X < -5180)
+            {
+                background1.position.X = 1;
+
+                if (ScrollCount == 1)
+                {
+                    //End Level
+                }
+                else
+                {
+                    ScrollCount++;
+                }         
+            }
         }
 
         public void Scrolling2()
         {
             background2.position.X -= 2;
             player.position.X -= 2;
+
+            if (background2.position.X < -5180)
+            {
+                background2.position.X = 1;         
+                ScrollCount++;
+            }
         }
 
         public void Scrolling3()
         {  
                 background3.position.X -= 2;
-                player.position.X -= 2;    
+                player.position.X -= 2;
+
+            if (background3.position.X < -5180)
+            {
+                background3.position.X = 1;
+                ScrollCount++;
+            }
         }
 
         //Mouse Click
@@ -600,7 +642,7 @@ namespace Final_Project_Forgot_USB
         {
             foreach (MobileObject money in Missles)
             {
-                if (money.position.X < -10)
+                if (money.position.X < -100)
                 {
                     MisslesToRemove.Add(money);
                 }
@@ -635,6 +677,20 @@ namespace Final_Project_Forgot_USB
             if (player.checkEnemyCollisions(enemy))
             {
                 player.health -= 500;
+            }
+        }
+
+        public void CheckMoneyCollisions()
+        {
+            enemy.position.X += 0.5f;
+            foreach (MobileObject Money in Missles)
+            {
+                if (money.checkEnemyMoneyCollisions(money) && enemy.position.X > 1)
+                {
+                    enemy.position.X--;
+                    enemy.UpdateBounds();
+                }
+                  
             }
         }
 
