@@ -107,6 +107,9 @@
     <Content Include="Content\Ponce New.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Poncey_neighbourhood.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Slums Final.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

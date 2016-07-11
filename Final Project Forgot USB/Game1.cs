@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Final_Project_Forgot_USB
 {
@@ -31,6 +32,7 @@ namespace Final_Project_Forgot_USB
         PlayerObject player;
         MobileObject money;
         List<MobileObject> Missles;
+        List<MobileObject> MisslesToRemove;
         MobileObject wall;
         MobileObject background1;
         MobileObject background2;
@@ -108,15 +110,17 @@ namespace Final_Project_Forgot_USB
             player.health = 500;
 
             money = new MobileObject();
+            money.UpdateBounds();
             money.position = player.position;
             money.velocity = new Vector2(5, 0);
-            money.size = new Vector2();
+            money.size = new Vector2(100,50);
             money.origin = new Vector2();
             money.rotation = 1f;
             money.rotationDelta = 0;
             money.scale = 1f;
             money.speed = 5;
             Missles = new List<MobileObject>();
+            MisslesToRemove = new List<MobileObject>();
             RandNum = new Random();
 
             lastShot = new TimeSpan(0, 0, 0, 0, 0);
@@ -184,7 +188,7 @@ namespace Final_Project_Forgot_USB
             money.texture = Content.Load<Texture2D>("TempMoney");
             newmoney = Content.Load<Texture2D>("Money Final");
             wall.texture = Content.Load<Texture2D>("Hydrent");
-            background1.texture = Content.Load<Texture2D>("Ponce New");
+            background1.texture = Content.Load<Texture2D>("Poncey_neighbourhood");
             background2.texture = Content.Load<Texture2D>("Slums Final");
             background3.texture = Content.Load<Texture2D>("Fields Final");
             menuBackground = Content.Load<Texture2D>("!!!MENU_COVER");
@@ -315,6 +319,7 @@ namespace Final_Project_Forgot_USB
                 enemy.UpdateBounds();
                 CheckWallCollisions();
                 CheckEnemyCollisions();
+                RemoveMoney();
 
             }
 
@@ -551,10 +556,13 @@ namespace Final_Project_Forgot_USB
                 MobileObject money = new MobileObject();
                 money.position = player.position;
                 money.texture = newmoney;
+                money.size = new Vector2(100, 50);
+                money.scale = 1f;
                 money.rotation = 0;
                 money.rotationDelta = 0;
                 money.velocity = new Vector2(-17, 0);
                 money.origin = new Vector2(money.texture.Width / 2, money.texture.Height / 2);
+                money.UpdateBounds();
 
                 Missles.Add(money);
 
@@ -569,6 +577,8 @@ namespace Final_Project_Forgot_USB
             {
                 money.position += money.velocity;
                 money.rotation -= 0.3f;
+                money.UpdateBounds();
+                Debug.WriteLine("Update Position" + money.position);
             }
         }
 
@@ -577,6 +587,28 @@ namespace Final_Project_Forgot_USB
             foreach (GameObject money in Missles)
             {
                 spriteBatch.Draw(money.texture, money.position,null,null,money.origin, money.rotation);
+
+                Texture2D RectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
+                RectangleTexture.SetData(new Color[] { Color.Yellow });
+                Rectangle MoneyBox = new Rectangle((int)money.aabb.min.X, (int)money.aabb.min.Y, (int)(money.size.X * money.scale), (int)(money.size.Y * money.scale));
+                spriteBatch.Draw(RectangleTexture, MoneyBox, Color.Yellow);
+                Debug.WriteLine("draw position" + money.position);
+            }
+        }
+
+        public void RemoveMoney()
+        {
+            foreach (MobileObject money in Missles)
+            {
+                if (money.position.X < -10)
+                {
+                    MisslesToRemove.Add(money);
+                }
+            }
+
+            foreach (MobileObject money in MisslesToRemove)
+            {
+                Missles.Remove(money);
             }
         }
 
@@ -608,18 +640,20 @@ namespace Final_Project_Forgot_USB
 
         public void ShowCollisionBox()
         {
-            Texture2D Test2 = new Texture2D(GraphicsDevice, 1, 1);
-            Test2.SetData(new Color[] { Color.Yellow });
-            Rectangle Test3 = new Rectangle((int)player.aabb.min.X, (int)player.aabb.min.Y, (int)(player.size.X * player.scale), (int)(player.size.Y * player.scale));
-            Rectangle Test4 = new Rectangle((int)wall.aabb.min.X, (int)wall.aabb.min.Y, (int)(wall.size.X * wall.scale), (int)(wall.size.Y * wall.scale));
-            Rectangle Test5 = new Rectangle((int)enemy.aabb.min.X, (int)enemy.aabb.min.Y, (int)(enemy.size.X * enemy.scale), (int)(enemy.size.Y * enemy.scale));
-            spriteBatch.Draw(Test2, Test3, Color.Yellow);
-            spriteBatch.Draw(Test2, Test4, Color.Yellow);
-            spriteBatch.Draw(Test2, Test5, Color.Yellow);
+            Texture2D RectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
+            RectangleTexture.SetData(new Color[] { Color.Yellow });
+            Rectangle PlayerBox = new Rectangle((int)player.aabb.min.X, (int)player.aabb.min.Y, (int)(player.size.X * player.scale), (int)(player.size.Y * player.scale));
+            Rectangle WallBox = new Rectangle((int)wall.aabb.min.X, (int)wall.aabb.min.Y, (int)(wall.size.X * wall.scale), (int)(wall.size.Y * wall.scale));
+            Rectangle EnemyBox = new Rectangle((int)enemy.aabb.min.X, (int)enemy.aabb.min.Y, (int)(enemy.size.X * enemy.scale), (int)(enemy.size.Y * enemy.scale));
+            
+            spriteBatch.Draw(RectangleTexture, PlayerBox, Color.Yellow);
+            spriteBatch.Draw(RectangleTexture, WallBox, Color.Yellow);
+            spriteBatch.Draw(RectangleTexture, EnemyBox, Color.Yellow);
+           
 
         }
 
-
+         
 
 
     }
