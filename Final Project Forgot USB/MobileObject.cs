@@ -13,6 +13,8 @@ namespace Final_Project_Forgot_USB
         public Vector2 velocity;
         public bool isThrown;
         public float rotationDelta;
+        public int randomX;
+        public int startX;
         
 
         public virtual void Update(GameTime gameTime, PlayerObject player)
