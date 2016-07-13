@@ -420,6 +420,7 @@ namespace Final_Project_Forgot_USB
                 CheckWallCollisions();
                 CheckEnemyCollisions();
                 RemoveMoney();
+                CheckMoneyCollisions();
             }
 
 
@@ -479,6 +480,7 @@ namespace Final_Project_Forgot_USB
                 CheckWallCollisions();
                 CheckEnemyCollisions();
                 RemoveMoney();
+                CheckMoneyCollisions();
             }
 
             base.Update(gameTime);
