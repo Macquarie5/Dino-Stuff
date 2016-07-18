@@ -22,6 +22,7 @@ namespace Final_Project_Forgot_USB
 
         Dinosaur_sprite sprite;
         People_Running sprite2;
+        public int timer;
 
         //Menu 
         private Texture2D StartButton;
@@ -57,6 +58,9 @@ namespace Final_Project_Forgot_USB
         public int ScrollCount;
         GameObject enemy;
 
+        public Texture2D LoseScreen;
+        public Vector2 LosePos;
+
         //Mouse
         MouseState mouseState;
         MouseState previousMouseState;
@@ -74,6 +78,8 @@ namespace Final_Project_Forgot_USB
             GAME1,
             GAME2,
             GAME3,
+            LOSE,
+            WIN
         }
         GameState gameState;
 
@@ -160,6 +166,8 @@ namespace Final_Project_Forgot_USB
             background3 = new MobileObject();
             background3.position = new Vector2(0, 0);
 
+            LosePos = new Vector2(0, 0);
+            timer = 0;
 
 
 
@@ -209,6 +217,7 @@ namespace Final_Project_Forgot_USB
             background2.texture = Content.Load<Texture2D>("Slums Final");
             background3.texture = Content.Load<Texture2D>("Fields Final");
             menuBackground = Content.Load<Texture2D>("Background_Final");
+            LoseScreen = Content.Load<Texture2D>("Lose_screen");
             
             StartButton = Content.Load<Texture2D>("Start");
             ExitButton = Content.Load<Texture2D>("Exit");
@@ -240,11 +249,11 @@ namespace Final_Project_Forgot_USB
             enemy.UpdateBounds();
 
             walls = new List<MobileObject>();
-            wallPosition = graphics.PreferredBackBufferWidth / 2;
-            for (int i = 0; i < NUM_WALLS; ++i)
-            {
-                CreateWall();
-            }
+            wallPosition = graphics.PreferredBackBufferWidth;
+            //for (int i = 0; i < NUM_WALLS; ++i)
+            //{
+            //    CreateWall();
+            //}
             // TODO: use this.Content to load your game content here
         }
 
@@ -268,7 +277,15 @@ namespace Final_Project_Forgot_USB
                 Exit();
 
             // TODO: Add your update logic here
+            Die();
 
+            while (walls.Count < NUM_WALLS)
+            {
+              
+                    CreateWall();
+                Debug.WriteLine("added wall, current walls =" + walls.Count);
+               
+            }
             
 
             if (gameState == GameState.MENU)
@@ -371,6 +388,7 @@ namespace Final_Project_Forgot_USB
                 sprite.HandleSpriteMovement(gameTime);
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
+                sprite2.Position2 = enemy.position;
                 
                 Scrolling2();
                 player.Update(gameTime, player);
@@ -431,7 +449,8 @@ namespace Final_Project_Forgot_USB
                 sprite.HandleSpriteMovement(gameTime);
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
-                
+                sprite2.Position2 = enemy.position;
+
                 Scrolling3();
                 player.Update(gameTime, player);
                 //Jumping
@@ -483,7 +502,18 @@ namespace Final_Project_Forgot_USB
                 CheckMoneyCollisions();
             }
 
-            base.Update(gameTime);
+            if (gameState == GameState.LOSE)
+            {
+                timer++;
+                if (timer == 300)
+                {
+                    gameState = GameState.MENU;
+                    timer = 0;
+                }
+
+            }
+
+                base.Update(gameTime);
         }
 
         /// <summary>
@@ -523,11 +553,17 @@ namespace Final_Project_Forgot_USB
             if (gameState == GameState.GAME1)
             {
                 spriteBatch.Draw(background1.texture, background1.position);
-                ShowCollisionBox();
+                spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
+                Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0);
+
+                spriteBatch.Draw(sprite2.Texture, sprite2.Position2, sprite2.SourceRect,
+                        Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                //ShowCollisionBox();
                 //spriteBatch.Draw(money.texture, money.position);
                 //spriteBatch.Draw(player.texture, player.position,scale:new Vector2(0.5f, 0.5f), effects:SpriteEffects.FlipHorizontally);
                 //spriteBatch.Draw(enemy.texture, enemy.position); 
                 DrawWalls();
+             
                 //spriteBatch.Draw(wall.texture, wall.position, scale: new Vector2(1.0f, 1.0f));
                 
                 
@@ -539,10 +575,18 @@ namespace Final_Project_Forgot_USB
             if (gameState == GameState.GAME2)
             {
                 spriteBatch.Draw(background2.texture, background2.position);
+                spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
+                Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0);
+
+                spriteBatch.Draw(sprite2.Texture, sprite2.Position2, sprite2.SourceRect,
+                        Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                //ShowCollisionBox();
                 //spriteBatch.Draw(money.texture, money.position);
                 //spriteBatch.Draw(player.texture, player.position);
                 //spriteBatch.Draw(enemy.texture, enemy.position);
                 //spriteBatch.Draw(wall.texture, wall.position);
+                DrawWalls();
+                Debug.WriteLine("Drawing walls");
                 DrawMoney();
                 DrawHealth();
             }
@@ -550,20 +594,27 @@ namespace Final_Project_Forgot_USB
             if (gameState == GameState.GAME3)
             {
                 spriteBatch.Draw(background3.texture, background3.position);
+                spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
+                Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0);
+
+                spriteBatch.Draw(sprite2.Texture, sprite2.Position2, sprite2.SourceRect,
+                        Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 //spriteBatch.Draw(money.texture, money.position);
                 //spriteBatch.Draw(player.texture, player.position);
                 //spriteBatch.Draw(enemy.texture, enemy.position);
                 //spriteBatch.Draw(wall.texture, wall.position);
+                DrawWalls();
                 DrawMoney();
                 DrawHealth();
             }
 
+            if (gameState == GameState.LOSE)
+            {
+                spriteBatch.Draw(LoseScreen, LosePos);
+            }
 
-            spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
-                Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0);
 
-            spriteBatch.Draw(sprite2.Texture, sprite2.Position2, sprite2.SourceRect,
-                    Color.White, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            
 
             spriteBatch.End();
             base.Draw(gameTime);
@@ -578,7 +629,7 @@ namespace Final_Project_Forgot_USB
 
         public void Scrolling1()
         {
-            background1.position.X -= 2;
+            background1.position.X -= 3;
             player.position.X -= 1;
 
             if (background1.position.X < -5180)
@@ -588,6 +639,10 @@ namespace Final_Project_Forgot_USB
                 if (ScrollCount == 1)
                 {
                     //End Level
+                    Level2Unlocked = true;
+                    Reset();
+                    gameState = GameState.MENU;
+                    ScrollCount = 0;
                 }
                 else
                 {
@@ -597,43 +652,65 @@ namespace Final_Project_Forgot_USB
 
             foreach (MobileObject wall in walls)
             {
-                wall.position.X -= 2;
+                wall.position.X -= 3;
                 wall.UpdateBounds();
             }
         }
 
         public void Scrolling2()
         {
-            background2.position.X -= 2;
-            player.position.X -= 2;
+            background2.position.X -= 3;
+            player.position.X -= 1;
 
             if (background2.position.X < -5180)
             {
-                background2.position.X = 1;         
-                ScrollCount++;
+                background2.position.X = 1;
+                if (ScrollCount == 1)
+                {
+                    //End Level
+                    Level3Unlocked = true;
+                    Reset();
+                    gameState = GameState.MENU;
+                    ScrollCount = 0;
+                }
+                else
+                {
+                    ScrollCount++;
+                }
             }
 
             foreach (MobileObject wall in walls)
             {
-                wall.position.X -= 2;
+                wall.position.X -= 3;
                 wall.UpdateBounds();
             }
         }
 
         public void Scrolling3()
         {  
-                background3.position.X -= 2;
-                player.position.X -= 2;
+                background3.position.X -= 3;
+                player.position.X -= 1;
 
             if (background3.position.X < -5180)
             {
                 background3.position.X = 1;
-                ScrollCount++;
+                if (ScrollCount == 1)
+                {
+                    //End Level
+                    //Final Win Screen
+                    Reset();
+                    gameState = GameState.MENU;
+                    ScrollCount = 0;
+                }
+                else
+                {
+                    ScrollCount++;
+                }
             }
 
             foreach (MobileObject wall in walls)
             {
-                wall.position.X -= 2;
+                wall.position.X -= 3;
                 wall.UpdateBounds();
             }
         }
@@ -693,7 +770,7 @@ namespace Final_Project_Forgot_USB
         {
             TimeSpan timeSincelastShot = gameTime.TotalGameTime - lastShot;
 
-            if (timeSincelastShot > shotCoolDown)
+            if (timeSincelastShot > shotCoolDown && player.health > 0)
             {
                 MobileObject money = new MobileObject();
                 money.position = player.position;
@@ -720,7 +797,7 @@ namespace Final_Project_Forgot_USB
                 money.position += money.velocity;
                 money.rotation -= 0.3f;
                 money.UpdateBounds();
-                Debug.WriteLine("Update Position" + money.position);
+                //Debug.WriteLine("Update Position" + money.position);
             }
         }
 
@@ -730,11 +807,11 @@ namespace Final_Project_Forgot_USB
             {
                 spriteBatch.Draw(money.texture, money.position,null,null,money.origin, money.rotation);
 
-                Texture2D RectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
-                RectangleTexture.SetData(new Color[] { Color.Yellow });
-                Rectangle MoneyBox = new Rectangle((int)money.aabb.min.X, (int)money.aabb.min.Y, (int)(money.size.X * money.scale), (int)(money.size.Y * money.scale));
-                spriteBatch.Draw(RectangleTexture, MoneyBox, Color.Yellow);
-                Debug.WriteLine("draw position" + money.position);
+                //Texture2D RectangleTexture = new Texture2D(GraphicsDevice, 1, 1);
+                //RectangleTexture.SetData(new Color[] { Color.Yellow });
+                //Rectangle MoneyBox = new Rectangle((int)money.aabb.min.X, (int)money.aabb.min.Y, (int)(money.size.X * money.scale), (int)(money.size.Y * money.scale));
+                //spriteBatch.Draw(RectangleTexture, MoneyBox, Color.Yellow);
+                //Debug.WriteLine("draw position" + money.position);
             }
         }
 
@@ -766,6 +843,10 @@ namespace Final_Project_Forgot_USB
   
         public void CheckWallCollisions()
         {
+            if (player.health < 500)
+            {
+                player.health += 0.1f;
+            }
             foreach (MobileObject wall in walls)
             {
                 if (player.checkWallCollisions(wall))
@@ -785,7 +866,7 @@ namespace Final_Project_Forgot_USB
 
         public void CheckMoneyCollisions()
         {
-            enemy.position.X += 0.5f;
+            enemy.position.X += 1;
             foreach (MobileObject Money in Missles)
             {
                 if (money.checkEnemyMoneyCollisions(money) && enemy.position.X > 1)
@@ -859,6 +940,25 @@ namespace Final_Project_Forgot_USB
             {
                 spriteBatch.Draw(wall.texture, wall.position, scale: new Vector2(1.0f, 1.0f));
             }       
+        }
+
+        public void Reset()
+        {
+            walls.Clear();
+            player.position = new Vector2(graphics.PreferredBackBufferWidth / 2, 400);
+            player.UpdateBounds();
+            enemy.position = new Vector2(5, 300);
+            enemy.UpdateBounds();
+            player.health = 500;
+
+        }
+         public void Die()
+        {
+            if (player.health < 0)
+            {
+                gameState = GameState.LOSE;
+                Reset();
+            }
         }
 
     }

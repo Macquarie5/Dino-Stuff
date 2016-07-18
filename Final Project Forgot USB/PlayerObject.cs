@@ -12,7 +12,7 @@ namespace Final_Project_Forgot_USB
         public bool jumping;
         public float startY;
         public float jumpspeed;
-        public int health;
+        public float health;
 
 
 

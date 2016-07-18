@@ -89,6 +89,9 @@
     <Content Include="Content\Hydrent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Lose_screen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Money Final.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
