@@ -83,9 +83,7 @@
     <Content Include="Content\fields_button_+_red_cross.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Gaslamp_Funworks.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\Gaslamp_Funworks.mp3" />
     <Content Include="Content\Hydrent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -95,13 +93,14 @@
     <Content Include="Content\Money Final.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Nano_Hoedown.mp3">
+    <Content Include="Content\Nano_Hoedown.mp3" />
+    <Content Include="Content\New_Fail_Sound.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\New_Win_Sound.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PEOPLE AGAIN.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Pixelland.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Pointer.png">
@@ -128,7 +127,6 @@
     <Content Include="Content\slums_button_+_red_cross.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Spazzmatica_Polka.mp3" />
     <Content Include="Content\Start.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

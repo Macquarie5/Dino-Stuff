@@ -19,6 +19,8 @@ namespace Final_Project_Forgot_USB
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Song Song;
+        SoundEffect SfxWin;
+        SoundEffect SfxLose;
 
         Dinosaur_sprite sprite;
         People_Running sprite2;
@@ -88,9 +90,11 @@ namespace Final_Project_Forgot_USB
 
         //Songs
         public Song MenuMusic;
-        public Song Level1;
-        public Song Level2;
-        public Song Level3;
+        public Song Level1Song;
+        public Song Level2Song;
+        public Song Level3Song;
+
+
 
         public Texture2D menuBackground;
         //public Texture2D menuDino;
@@ -234,10 +238,17 @@ namespace Final_Project_Forgot_USB
             sprite2.Position2 = enemy.position;
 
             //Music
-            //MenuMusic = Content.Load<Song>("");
-            //Level1 = Content.Load<Song>("");
-            //Level2 = Content.Load<Song>("");
-            //Level3 = Content.Load<Song>("");
+            MenuMusic = Content.Load<Song>("The_Show_Must_Be_Go");
+            MediaPlayer.Play(MenuMusic);
+
+            Level1Song = Content.Load<Song>("Gaslamp_Funworks");
+            Level2Song = Content.Load<Song>("Nano_Hoedown");
+            Level3Song = Content.Load<Song>("The_Builder");
+
+            SfxWin = Content.Load<SoundEffect>("New_Win_Sound");
+            SfxLose = Content.Load<SoundEffect>("New_Fail_Sound");
+
+            MediaPlayer.IsRepeating = true;
 
 
             player.origin = new Vector2(player.texture.Width / 2, player.texture.Height / 2);
@@ -639,9 +650,12 @@ namespace Final_Project_Forgot_USB
                 if (ScrollCount == 1)
                 {
                     //End Level
+                    SfxWin.Play();
                     Level2Unlocked = true;
                     Reset();
                     gameState = GameState.MENU;
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(MenuMusic);
                     ScrollCount = 0;
                 }
                 else
@@ -668,9 +682,12 @@ namespace Final_Project_Forgot_USB
                 if (ScrollCount == 1)
                 {
                     //End Level
+                    SfxWin.Play();
                     Level3Unlocked = true;
                     Reset();
                     gameState = GameState.MENU;
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(MenuMusic);
                     ScrollCount = 0;
                 }
                 else
@@ -698,8 +715,11 @@ namespace Final_Project_Forgot_USB
                 {
                     //End Level
                     //Final Win Screen
+                    SfxWin.Play();
                     Reset();
                     gameState = GameState.MENU;
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(MenuMusic);
                     ScrollCount = 0;
                 }
                 else
@@ -752,15 +772,20 @@ namespace Final_Project_Forgot_USB
                 if (mouseClickRect.Intersects(Level1Rect))
                 {
                     gameState = GameState.GAME1;
-
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(Level1Song);
                 }
                 else if (mouseClickRect.Intersects(Level2Rect) && (Level2Unlocked == true))
                 {
                     gameState = GameState.GAME2;
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(Level2Song);
                 }
                 else if (mouseClickRect.Intersects(Level3Rect) && (Level3Unlocked == true))
                 {
                     gameState = GameState.GAME3;
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(Level3Song);
                 }
 
             }
@@ -956,7 +981,9 @@ namespace Final_Project_Forgot_USB
         {
             if (player.health < 0)
             {
+                SfxLose.Play();
                 gameState = GameState.LOSE;
+                MediaPlayer.Stop();
                 Reset();
             }
         }
