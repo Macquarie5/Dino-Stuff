@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using System.Diagnostics;
 
+
+
 namespace Final_Project_Forgot_USB
 {
     /// <summary>
@@ -21,6 +23,9 @@ namespace Final_Project_Forgot_USB
         Song Song;
         SoundEffect SfxWin;
         SoundEffect SfxLose;
+
+        //Emitter flyEmitter = null;
+        //Texture2D flyTexture = null;
 
         Dinosaur_sprite sprite;
         People_Running sprite2;
