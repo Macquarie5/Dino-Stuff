@@ -65,6 +65,12 @@
     <Content Include="Content\Background_Final.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\BAG_AGAIN_!!!!!.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\barricade_cow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Dinosaur_Trex Single.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

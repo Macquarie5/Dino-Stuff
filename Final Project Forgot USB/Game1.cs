@@ -519,6 +519,7 @@ namespace Final_Project_Forgot_USB
                 if (timer == 300)
                 {
                     gameState = GameState.MENU;
+                    MediaPlayer.Play(MenuMusic);
                     timer = 0;
                 }
 
@@ -772,18 +773,24 @@ namespace Final_Project_Forgot_USB
                 if (mouseClickRect.Intersects(Level1Rect))
                 {
                     gameState = GameState.GAME1;
+                    wallTexture = Content.Load<Texture2D>("Hydrent");
+                    Reset();
                     MediaPlayer.Stop();
                     MediaPlayer.Play(Level1Song);
                 }
                 else if (mouseClickRect.Intersects(Level2Rect) && (Level2Unlocked == true))
                 {
                     gameState = GameState.GAME2;
+                    wallTexture = Content.Load<Texture2D>("BAG_AGAIN_!!!!!");
+                    Reset();
                     MediaPlayer.Stop();
                     MediaPlayer.Play(Level2Song);
                 }
                 else if (mouseClickRect.Intersects(Level3Rect) && (Level3Unlocked == true))
                 {
                     gameState = GameState.GAME3;
+                    wallTexture = Content.Load<Texture2D>("barricade_cow");
+                    Reset();
                     MediaPlayer.Stop();
                     MediaPlayer.Play(Level3Song);
                 }
@@ -970,6 +977,7 @@ namespace Final_Project_Forgot_USB
         public void Reset()
         {
             walls.Clear();
+            wallPosition = graphics.PreferredBackBufferWidth;
             player.position = new Vector2(graphics.PreferredBackBufferWidth / 2, 400);
             player.UpdateBounds();
             enemy.position = new Vector2(5, 300);
