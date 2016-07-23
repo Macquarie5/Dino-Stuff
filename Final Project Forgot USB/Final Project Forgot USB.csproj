@@ -49,6 +49,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="MobileObject.cs" />
+    <Compile Include="m_ParticleSystem.cs" />
     <Compile Include="ParticleSystem.cs" />
     <Compile Include="People_Running_sprite.cs" />
     <Compile Include="PlayerObject.cs" />
@@ -90,11 +91,17 @@
     <Content Include="Content\fields_button_+_red_cross.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Fly.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Gaslamp_Funworks.mp3" />
     <Content Include="Content\Hydrent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Lose_screen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\mini money.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Money Final.png">

@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 
 
+
 namespace Final_Project_Forgot_USB
 {
     /// <summary>
@@ -23,9 +24,13 @@ namespace Final_Project_Forgot_USB
         Song Song;
         SoundEffect SfxWin;
         SoundEffect SfxLose;
+        
 
-        //Emitter flyEmitter = null;
-        //Texture2D flyTexture = null;
+        ParticleSystem.Emitter flyEmitter = null;
+        Texture2D flyTexture = null;
+
+        m_ParticleSystem.m_Emitter moneyEmitter = null;
+        Texture2D moneyTexture = null;
 
         Dinosaur_sprite sprite;
         People_Running sprite2;
@@ -67,6 +72,8 @@ namespace Final_Project_Forgot_USB
 
         public Texture2D LoseScreen;
         public Vector2 LosePos;
+
+        public Vector2 centre;
 
         //Mouse
         MouseState mouseState;
@@ -178,7 +185,7 @@ namespace Final_Project_Forgot_USB
             LosePos = new Vector2(0, 0);
             timer = 0;
 
-
+            centre = new Vector2(player.position.X - player.origin.X, player.position.Y - player.origin.Y);
 
             //Default State
             gameState = GameState.MENU;
@@ -192,9 +199,9 @@ namespace Final_Project_Forgot_USB
             //LevelSelect Int
             Level1ButtonPosition = new Vector2(100, graphics.PreferredBackBufferHeight / 2);
             Level2ButtonPosition = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
-            Level2Unlocked = false;
+            Level2Unlocked = true;
             Level3ButtonPosition = new Vector2(600, graphics.PreferredBackBufferHeight / 2);
-            Level3Unlocked = false;
+            Level3Unlocked = true;
 
             //Mouse Click
             mouseState = Mouse.GetState();
@@ -253,6 +260,12 @@ namespace Final_Project_Forgot_USB
             SfxWin = Content.Load<SoundEffect>("New_Win_Sound");
             SfxLose = Content.Load<SoundEffect>("New_Fail_Sound");
 
+            flyTexture = Content.Load<Texture2D>("Fly");
+            flyEmitter = new ParticleSystem.Emitter(flyTexture, new Vector2(graphics.PreferredBackBufferWidth / 2, 320));
+
+            moneyTexture = Content.Load<Texture2D>("mini money");
+            moneyEmitter = new m_ParticleSystem.m_Emitter(moneyTexture, centre);
+
             MediaPlayer.IsRepeating = true;
 
 
@@ -294,6 +307,7 @@ namespace Final_Project_Forgot_USB
 
             // TODO: Add your update logic here
             Die();
+            centre = new Vector2(player.position.X + player.origin.X, player.position.Y + player.origin.Y);
 
             while (walls.Count < NUM_WALLS)
             {
@@ -342,7 +356,9 @@ namespace Final_Project_Forgot_USB
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
                 sprite2.Position2 = enemy.position;
+                moneyEmitter.m_position = centre;
 
+                moneyEmitter.Update(gameTime);
                 Scrolling1();
                 player.Update(gameTime, player);
 
@@ -405,7 +421,9 @@ namespace Final_Project_Forgot_USB
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
                 sprite2.Position2 = enemy.position;
-                
+                moneyEmitter.m_position = centre;
+
+                moneyEmitter.Update(gameTime);
                 Scrolling2();
                 player.Update(gameTime, player);
                 //Jumping
@@ -466,7 +484,9 @@ namespace Final_Project_Forgot_USB
                 sprite.Position = player.position;
                 sprite2.HandleSpriteMovement(gameTime);
                 sprite2.Position2 = enemy.position;
+                moneyEmitter.m_position = centre;
 
+                moneyEmitter.Update(gameTime);
                 Scrolling3();
                 player.Update(gameTime, player);
                 //Jumping
@@ -526,7 +546,11 @@ namespace Final_Project_Forgot_USB
                     gameState = GameState.MENU;
                     MediaPlayer.Play(MenuMusic);
                     timer = 0;
+
                 }
+                flyEmitter.position = new Vector2(graphics.PreferredBackBufferWidth / 2, 320);
+
+                flyEmitter.Update(gameTime);
 
             }
 
@@ -570,6 +594,7 @@ namespace Final_Project_Forgot_USB
             if (gameState == GameState.GAME1)
             {
                 spriteBatch.Draw(background1.texture, background1.position);
+                moneyEmitter.Draw(spriteBatch);
                 spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
                 Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0);
 
@@ -592,6 +617,7 @@ namespace Final_Project_Forgot_USB
             if (gameState == GameState.GAME2)
             {
                 spriteBatch.Draw(background2.texture, background2.position);
+                moneyEmitter.Draw(spriteBatch);
                 spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
                 Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0);
 
@@ -603,7 +629,7 @@ namespace Final_Project_Forgot_USB
                 //spriteBatch.Draw(enemy.texture, enemy.position);
                 //spriteBatch.Draw(wall.texture, wall.position);
                 DrawWalls();
-                Debug.WriteLine("Drawing walls");
+                
                 DrawMoney();
                 DrawHealth();
             }
@@ -611,6 +637,7 @@ namespace Final_Project_Forgot_USB
             if (gameState == GameState.GAME3)
             {
                 spriteBatch.Draw(background3.texture, background3.position);
+                moneyEmitter.Draw(spriteBatch);
                 spriteBatch.Draw(sprite.Texture, sprite.Position, sprite.SourceRect,
                 Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0);
 
@@ -628,6 +655,7 @@ namespace Final_Project_Forgot_USB
             if (gameState == GameState.LOSE)
             {
                 spriteBatch.Draw(LoseScreen, LosePos);
+                flyEmitter.Draw(spriteBatch);
             }
 
 
@@ -649,7 +677,7 @@ namespace Final_Project_Forgot_USB
             background1.position.X -= 3;
             player.position.X -= 1;
 
-            if (background1.position.X < -5180)
+            if (background1.position.X < -4950)
             {
                 background1.position.X = 1;
 
